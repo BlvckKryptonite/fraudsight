@@ -1,16 +1,16 @@
 import streamlit as st
-import importlib
+from app_pages import (
+    project_summary,
+    fraud_visualizer,
+    fraud_detector,
+    model_performance
+)
 
-# Import modules whose filenames start with a digit using importlib and assign to valid identifiers
-_1_project_summary = importlib.import_module("app_pages.1_project_summary")
-_2_fraud_visualizer = importlib.import_module("app_pages.2_fraud_visualizer")
-_3_fraud_detector = importlib.import_module("app_pages.3_fraud_detector")
-_4_model_performance = importlib.import_module("app_pages.4_model_performance")
 pages = {
-    "Project Summary": _1_project_summary,
-    "Fraud Visualizer": _2_fraud_visualizer,
-    "Fraud Detector": _3_fraud_detector,
-    "Model Performance": _4_model_performance
+    "Project Summary": project_summary,
+    "Fraud Visualizer": fraud_visualizer,
+    "Fraud Detector": fraud_detector,
+    "Model Performance": model_performance
 }
 
 st.sidebar.title("Navigation")
