@@ -6,12 +6,16 @@ import seaborn as sns
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("../data/cleaned_transactions.csv")
+    # Fixed path relative to project root folder
+    return pd.read_csv("data/cleaned_transactions.csv")
 
 
 def app():
     st.title("Fraud Visualizer")
     df = load_data()
+
+    # Extract hour from Time column
+    df['Hour'] = pd.to_datetime(df['Time']).dt.hour
 
     # Fraud rate by hour
     st.write("#### Fraud Rate by Hour")
