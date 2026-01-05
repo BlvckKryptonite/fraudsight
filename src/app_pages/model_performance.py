@@ -8,14 +8,14 @@ import pandas as pd
 
 @st.cache_resource
 def load_model():
-    with open("../src/utils/model_pipeline.pkl", "rb") as f:
+    with open("src/utils/model_pipeline.pkl", "rb") as f:
         return pickle.load(f)
 
 
 def app():
     st.title("Model Performance")
     model = load_model()
-    df = pd.read_csv("../data/cleaned_transactions.csv")
+    df = pd.read_csv("data/cleaned_transactions.csv")
     X = df.drop(columns=["Is_Fraud"])
     y = df["Is_Fraud"]
 
