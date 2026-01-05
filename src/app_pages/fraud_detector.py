@@ -5,7 +5,7 @@ import pandas as pd
 
 @st.cache_resource
 def load_model():
-    with open("../src/utils/model_pipeline.pkl", "rb") as f:
+    with open("src/utils/model_pipeline.pkl", "rb") as f:
         return pickle.load(f)
 
 
