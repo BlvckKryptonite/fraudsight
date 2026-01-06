@@ -4,11 +4,15 @@ from sklearn.metrics import confusion_matrix, roc_curve, auc
 import seaborn as sns
 import pickle
 import pandas as pd
+from pathlib import Path
 
 
 @st.cache_resource
 def load_model():
-    with open("src/utils/model_pipeline.pkl", "rb") as f:
+    BASE_DIR = Path(__file__).resolve().parents[2]
+    MODEL_PATH = BASE_DIR / "src" / "utils" / "model_pipeline.pkl"
+
+    with open(MODEL_PATH, "rb") as f:
         return pickle.load(f)
 
 

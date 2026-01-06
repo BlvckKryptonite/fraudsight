@@ -2,11 +2,15 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
 
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/cleaned_transactions.csv")
+    BASE_DIR = Path(__file__).resolve().parents[2]
+    DATA_PATH = BASE_DIR / "data" / "cleaned_transactions.csv"
+
+    df = pd.read_csv(DATA_PATH)
 
     # Normalize target column
     if "Class" in df.columns:
