@@ -22,11 +22,13 @@ def app():
     st.title("📊 Fraud Visualizer")
     df = load_data()
 
-    #  Fraud rate by hour
+    # Fraud rate by hour
     st.subheader("Fraud Rate by Hour")
     fig, ax = plt.subplots()
     sns.barplot(x="Hour", y="Is_Fraud", data=df, ax=ax)
     ax.set_ylabel("Fraud Rate")
+    ax.set_xticks(range(24))
+    ax.set_xticklabels([str(h) for h in range(24)])
     st.pyplot(fig)
 
     # Transaction amount distribution
