@@ -6,25 +6,32 @@ import seaborn as sns
 
 @st.cache_data
 def load_data():
-    # Fixed path relative to project root folder
-    return pd.read_csv("data/cleaned_transactions.csv")
+    df = pd.read_csv("data/cleaned_transactions.csv")
+
+    # Normalize target column
+    if "Class" in df.columns:
+        df = df.rename(columns={"Class": "Is_Fraud"})
+
+    # Mapping the Hour column from Time (seconds since first transaction)
+    df["Hour"] = (df["Time"] // 3600) % 24
+
+    return df
 
 
 def app():
-    st.title("Fraud Visualizer")
+    st.title("📊 Fraud Visualizer")
     df = load_data()
 
-    # Extract hour from Time column
-    df['Hour'] = pd.to_datetime(df['Time']).dt.hour
-
-    # Fraud rate by hour
-    st.write("#### Fraud Rate by Hour")
+    #  Fraud rate by hour
+    st.subheader("Fraud Rate by Hour")
     fig, ax = plt.subplots()
     sns.barplot(x="Hour", y="Is_Fraud", data=df, ax=ax)
+    ax.set_ylabel("Fraud Rate")
     st.pyplot(fig)
 
     # Transaction amount distribution
-    st.write("#### Transaction Amount Distribution")
+    st.subheader("Transaction Amount Distribution")
     fig, ax = plt.subplots()
     sns.boxplot(x="Is_Fraud", y="Amount", data=df, ax=ax)
+    ax.set_xticklabels(["Legitimate", "Fraud"])
     st.pyplot(fig)

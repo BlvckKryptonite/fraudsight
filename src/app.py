@@ -1,29 +1,23 @@
-import pickle
-import pandas as pd
-import os
+import streamlit as st
 
-# Absolute-safe path resolution
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(BASE_DIR, "utils", "model_pipeline.pkl")
+from app_pages import (
+    project_summary,
+    fraud_visualizer,
+    fraud_detector,
+    model_performance
+)
 
-# Load model once at startup
-with open(MODEL_PATH, "rb") as f:
-    model = pickle.load(f)
+st.set_page_config(page_title="FraudSight", layout="wide")
 
-print("✅ Model loaded successfully")
+pages = {
+    "📘 Project Summary": project_summary,
+    "📊 Fraud Visualizer": fraud_visualizer,
+    "🕵🏾 Fraud Detector": fraud_detector,
+    "📈 Model Performance": model_performance,
+}
 
+st.sidebar.title("Navigation")
+selection = st.sidebar.radio("Go to", list(pages.keys()))
 
-def predict_fraud(transaction_data: dict):
-    """
-    transaction_data: dict with keys matching model features
-    returns: prediction (0 = legit, 1 = fraud)
-    """
-
-    df = pd.DataFrame([transaction_data])
-    prediction = model.predict(df)[0]
-    probability = model.predict_proba(df)[0][1]
-
-    return {
-        "prediction": int(prediction),
-        "fraud_probability": float(probability)
-    }
+page = pages[selection]
+page.app()
