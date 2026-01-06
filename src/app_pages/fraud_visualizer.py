@@ -8,7 +8,7 @@ from pathlib import Path
 @st.cache_data
 def load_data():
     BASE_DIR = Path(__file__).resolve().parents[2]
-    DATA_PATH = BASE_DIR / "data" / "cleaned_transactions.csv"
+    DATA_PATH = BASE_DIR / "data" / "sample_cleaned_transactions.csv"
 
     df = pd.read_csv(DATA_PATH)
 
