@@ -48,8 +48,12 @@ def app():
         # Some UI output polish
         st.subheader("Prediction Results")
 
+        # Limit maximum rows to display
+        MAX_DISPLAY_ROWS = 100
+
         st.dataframe(
             results[["Amount", "Fraud_Prediction", "Fraud_Probability"]]
+            .head(MAX_DISPLAY_ROWS)
             .assign(
                 Fraud_Prediction=lambda x: x["Fraud_Prediction"].map(
                     {0: "Legitimate", 1: "Fraud"}
@@ -58,6 +62,9 @@ def app():
             .style.format({"Fraud_Probability": "{:.2%}"})
         )
 
+        st.write(f"Displaying top {MAX_DISPLAY_ROWS} transactions")
+
         fraud_count = results["Fraud_Prediction"].sum()
         st.info(
-            f"🚨 Detected {fraud_count} potentially fraudulent transactions.")
+            f"🚨 Detected {fraud_count} potentially fraudulent transactions."
+        )
