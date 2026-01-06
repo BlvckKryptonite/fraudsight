@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 import pandas as pd
+from pathlib import Path
 
 
 st.set_page_config(
@@ -11,7 +12,10 @@ st.set_page_config(
 
 @st.cache_resource
 def load_model():
-    with open("src/utils/model_pipeline.pkl", "rb") as f:
+    BASE_DIR = Path(__file__).resolve().parents[2]
+    MODEL_PATH = BASE_DIR / "src" / "utils" / "model_pipeline.pkl"
+
+    with open(MODEL_PATH, "rb") as f:
         return pickle.load(f)
 
 
