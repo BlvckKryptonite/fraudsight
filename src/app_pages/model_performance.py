@@ -27,7 +27,7 @@ def load_model():
 def app():
     st.title("Model Performance")
     model = load_model()
-    df = pd.read_csv("data/cleaned_transactions.csv")
+    df = pd.read_csv("data/sample_cleaned_transactions.csv")
     # Mapped to match model expectations
     df = df.rename(columns={"Class": "Is_Fraud"})
 
