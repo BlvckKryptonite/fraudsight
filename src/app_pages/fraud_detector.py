@@ -23,6 +23,15 @@ def app():
     st.title("🕵🏾 Fraud Detector")
     st.write("Upload a transaction CSV to detect potential fraud.")
 
+    st.markdown(
+        "**Note:** Due to deployment limitations, uploading large "
+        "datasets may fail or be slow. For the best experience, please "
+        "run this feature locally using the full dataset. Instructions "
+        "are available in the README on the Project Summary page.\n\n"
+        "This deployed app uses a smaller sample dataset for "
+        "demonstration purposes."
+    )
+
     model = load_model()
     st.success("Model loaded successfully.")
 
