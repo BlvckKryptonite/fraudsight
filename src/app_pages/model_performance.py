@@ -9,8 +9,16 @@ from pathlib import Path
 
 @st.cache_resource
 def load_model():
+
     BASE_DIR = Path(__file__).resolve().parents[2]
     MODEL_PATH = BASE_DIR / "src" / "utils" / "model_pipeline.pkl"
+
+    # Safeguard to prevent potential future corruption 😮‍💨
+    if not MODEL_PATH.exists():
+        raise FileNotFoundError(f"Model not found at {MODEL_PATH}")
+
+    if MODEL_PATH.stat().st_size < 10_000:
+        raise ValueError("Model file looks corrupted (too small)")
 
     with open(MODEL_PATH, "rb") as f:
         return pickle.load(f)
