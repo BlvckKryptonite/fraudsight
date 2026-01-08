@@ -22,7 +22,7 @@ The application combines exploratory data analysis, supervised machine learning,
 
 ## 📖 Table of Contents
 
-- [📊 Dataset Content](#📊-dataset-content)
+- [Dataset Content](#📊-dataset-content)
 - [Business Requirements](#🎯-business-requirements)
 - [Hypotheses and Validation](#🔬-hypotheses-and-validation)
 - [Rationale for Data Visualisations and ML Tasks](#📈-rationale-for-data-visualisations-and-ml-tasks)
@@ -206,6 +206,7 @@ Although typically avoided in production code, print statements were retained in
 |---------------------------|--------------------------------------------------------------------------------------------------------------|
 | **Deployment Upload Limits** | Large CSV uploads (including small samples) may fail on the deployed app due to platform constraints. The Fraud Detector works reliably when run locally with the full dataset. |
 | **Class Imbalance Sensitivity** | Very small transaction amounts may show reduced predictive reliability due to class imbalance.        |
+| **Table of Contents Anchors** | Due to GitHub Markdown’s handling of emojis in headings, some Table of Contents anchor links may not map correctly in the live GitHub README, despite working as expected in local Markdown renderers. Emojis were intentionally retained for readability and visual clarity.       |
 
 
 <br>
