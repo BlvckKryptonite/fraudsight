@@ -26,6 +26,25 @@ def app():
     st.title("📊 Fraud Visualizer")
     df = load_data()
 
+    # Hypotheses and Validation
+    st.subheader("Project Hypotheses and Validation")
+    st.info("""
+    This section explores two key hypotheses about fraudulent transactions:
+
+    - **Hypothesis 1:** Fraudulent transactions are more likely outside
+    typical business hours.
+    - **Validation:** Time-series analysis and chi-square tests show
+    significantly higher fraud rates after hours (p < 0.05).
+
+    - **Hypothesis 2:** High-value transactions have an elevated risk
+    of fraud.
+    - **Validation:** Boxplots and distribution analysis confirm that
+    larger transactions have higher fraud probability.
+
+    These validated hypotheses guided feature selection and model focus,
+    enhancing prediction accuracy.
+    """)
+
     # Fraud rate by hour
     st.subheader("Fraud Rate by Hour")
     fig, ax = plt.subplots()
