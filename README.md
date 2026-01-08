@@ -54,10 +54,13 @@ This dataset contains anonymised credit card transactions and is highly imbalanc
 | `V1–V28`        | Anonymised PCA-transformed features  (from original dataset)                            | Continuous values     |
 | `Class` / `Is_Fraud` | Fraud label (0 = Legitimate, 1 = Fraud)                    | `0`, `1`              |
 
+<br>
 
 > **Note:** During preprocessing, the target variable was standardised to `Is_Fraud` for clarity and consistency across notebooks and application code.
 
 ---
+
+<br>
 
 ## 🎯 Business Requirements
 
@@ -66,6 +69,8 @@ This dataset contains anonymised credit card transactions and is highly imbalanc
 - Financial analysts
 - Risk management teams
 - Compliance and fraud investigation teams
+
+<br>
 
 ### Core Requirements
 
@@ -77,6 +82,7 @@ This dataset contains anonymised credit card transactions and is highly imbalanc
 | **Predictive Modelling** | Classify transactions as fraudulent or legitimate        |
 | **Decision Support**   | Highlight high-risk transactions for further review      |
 
+<br>
 
 ## 🔬 Hypotheses and Validation
 
@@ -97,8 +103,9 @@ This dataset contains anonymised credit card transactions and is highly imbalanc
 | **Hypothesis 1** | ✅ Confirmed — fraud rates increase outside typical business hours     |
 | **Hypothesis 2** | ✅ Confirmed — higher transaction values show elevated fraud risk      |
 
+<br>
 
----
+
 
 ## 📈 Rationale for Data Visualisations and ML Tasks
 
@@ -109,11 +116,11 @@ This dataset contains anonymised credit card transactions and is highly imbalanc
 | Risk inspection            | Interactive tables             | Streamlit, Pandas     |
 
 
----
+<br>
 
 ## 🤖 Machine Learning Business Case
 
-### Aim
+### Aim:
 
 Reduce financial losses by flagging potentially fraudulent transactions early.
 
@@ -135,11 +142,11 @@ A **Random Forest classifier** was selected due to:
 - Binary fraud prediction
 - Fraud probability score
 
----
+<br>
 
 ## 🧭 Dashboard Design
 
-### Pages
+### Pages:
 
 | Page              | Description                                                     |
 |-------------------|-----------------------------------------------------------------|
@@ -149,12 +156,12 @@ A **Random Forest classifier** was selected due to:
 | **Model Performance** | Evaluation metrics, confusion matrix, and diagnostics       |
 
 
-### Widgets
+### Widgets:
 
 - File uploader for CSV input
 - Interactive tables and visual outputs
 
----
+<br>
 
 ## 🛠️ Development Notes & Technical Decisions
 
@@ -164,9 +171,11 @@ Early in development, large dataset handling caused repeated deployment and envi
 
 > This mirrors real-world engineering practice and helped preserve project integrity.
 
+<br>
+
 ### Model Tuning vs Diploma Scope
 
-Significant time was initially spent tuning hyperparameters via `GridSearchCV`. While effective locally, this proved excessive for a diploma-level deployment environment.
+Significant time was initially spent tuning hyperparameters via `GridSearchCV`. While effective locally, this proved excessive for my deployment environment.
 
 As a result:
 
@@ -174,6 +183,8 @@ As a result:
 - A stable, performant configuration was prioritised over exhaustive optimisation
 
 > This distinction between local experimentation and production constraints is intentional and documented.
+
+<br>
 
 ### Debug Print Statements in Notebooks
 
@@ -183,9 +194,11 @@ Although typically avoided in production code, print statements were retained in
 - Easier future iteration and retraining
 - Clear execution checkpoints during long-running processes
 
-> Given the complexity of the dataset and training pipeline, this decision prioritised maintainability.
+<br>
 
----
+> Given the complexity of the dataset and training pipeline, as well as the challenges encountered due to differences between local and production environments, this decision prioritised stability, maintainability, and reproducibility of the application.
+
+<br>
 
 ## 🐞 Unfixed Bugs & Known Limitations
 
@@ -195,7 +208,7 @@ Although typically avoided in production code, print statements were retained in
 | **Class Imbalance Sensitivity** | Very small transaction amounts may show reduced predictive reliability due to class imbalance.        |
 
 
----
+<br>
 
 ## 🚀 Deployment
 
@@ -211,10 +224,12 @@ Deployed via Heroku (or equivalent platform). Due to platform constraints, the d
     pip install -r requirements.txt
     streamlit run src/app.py
     
+<br>
 
-> ⚠️ **Important**: To run the full fraud detection workflow, download the full dataset locally and ensure it is named according to the README instructions.
+> ⚠️ **Important:** To run the full fraud detection workflow, download the complete dataset locally and place it in the `data` directory, replacing the representative sample.
+The file **must** be named exactly "`sample_cleaned_transactions.csv`", as this filename is referenced consistently across the application and model pipeline.
 
----
+<br>
 
 ## 📚 Main Data Analysis & ML Libraries
 
@@ -227,13 +242,14 @@ Deployed via Heroku (or equivalent platform). Due to platform constraints, the d
 | Joblib / Pickle       | Model persistence                  |
 
 
----
+<br>
 
 ## 📎 Credits
 
 - **Dataset**: [Kaggle Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
 - **Documentation**: [Scikit-learn](https://scikit-learn.org/) & [Streamlit](https://docs.streamlit.io/)
 
+<br>
 
 ## 🙏 Acknowledgements
 
@@ -241,7 +257,7 @@ Special thanks to mentors, peers, and reviewers whose feedback helped shape this
 
 This project represents both a technical and learning milestone within the programme.
 
----
+<br>
 
 ## ✅ Final Note for Assessors
 

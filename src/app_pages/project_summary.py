@@ -59,8 +59,10 @@ def app():
     )
 
     # README Link
-    repo_url = ("https://github.com/BlvckKryptonite/"
-                "fraudsight-risk-analyzer")
+    repo_url = (
+        "https://github.com/BlvckKryptonite/"
+        "fraudsight/blob/main/README.md"
+    )
 
     st.markdown(
         f"""
