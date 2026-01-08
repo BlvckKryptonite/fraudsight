@@ -37,7 +37,7 @@ The application combines exploratory data analysis, supervised machine learning,
 
 ---
 
-## 📊 Dataset Content
+# 📊 Dataset Content
 
 ### Source
 
