@@ -98,10 +98,10 @@ This dataset contains anonymised credit card transactions and is highly imbalanc
 
 ### Conclusions
 
-| Hypothesis     | Result                                                                 |
+| Hypothesis Testing    | Result                                                                 |
 |----------------|------------------------------------------------------------------------|
 | **Hypothesis 1** | ✅ Confirmed — fraud rates increase outside typical business hours     |
-| **Hypothesis 2** | ✅ Confirmed — higher transaction values show elevated fraud risk      |
+| **Hypothesis 2** | ⚠️ Partially supported — fraud risk increases for higher-than-average transaction amounts, though extreme high-value transactions are predominantly legitimate.     |
 
 <br>
 
