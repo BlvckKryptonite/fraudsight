@@ -22,7 +22,7 @@ The application combines exploratory data analysis, supervised machine learning,
 
 ## 📖 Table of Contents
 
-- [Dataset Content](#📊-dataset-content)
+- [📊 Dataset Content](#📊-dataset-content)
 - [Business Requirements](#🎯-business-requirements)
 - [Hypotheses and Validation](#🔬-hypotheses-and-validation)
 - [Rationale for Data Visualisations and ML Tasks](#📈-rationale-for-data-visualisations-and-ml-tasks)
