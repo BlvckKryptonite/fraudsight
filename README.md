@@ -22,18 +22,19 @@ The application combines exploratory data analysis, supervised machine learning,
 
 ## 📖 Table of Contents
 
-- [Dataset Content](#dataset-content)
-- [Business Requirements](#business-requirements)
-- [Hypotheses and Validation](#hypotheses-and-validation)
-- [Rationale for Data Visualisations and ML Tasks](#rationale-for-data-visualisations-and-ml-tasks)
-- [Machine Learning Business Case](#machine-learning-business-case)
-- [Dashboard Design](#dashboard-design)
-- [Development Notes & Technical Decisions](#development-notes--technical-decisions)
-- [Unfixed Bugs & Known Limitations](#unfixed-bugs--known-limitations)
-- [Deployment](#deployment)
-- [Main Data Analysis & ML Libraries](#main-data-analysis--ml-libraries)
-- [Credits](#credits)
-- [Acknowledgements](#acknowledgements)
+- [Dataset Content](#📊-dataset-content)
+- [Business Requirements](#🎯-business-requirements)
+- [Hypotheses and Validation](#🔬-hypotheses-and-validation)
+- [Rationale for Data Visualisations and ML Tasks](#📈-rationale-for-data-visualisations-and-ml-tasks)
+- [Machine Learning Business Case](#🤖-machine-learning-business-case)
+- [Dashboard Design](#🧭-dashboard-design)
+- [Development Notes & Technical Decisions](#🛠️-development-notes--technical-decisions)
+- [Unfixed Bugs & Known Limitations](#🐞-unfixed-bugs--known-limitations)
+- [Deployment](#🚀-deployment)
+- [Main Data Analysis & ML Libraries](#📚-main-data-analysis--ml-libraries)
+- [Credits](#📎-credits)
+- [Acknowledgements](#🙏-acknowledgements)
+- [Final Note for Assessors](#✅-final-note-for-assessors)
 
 ---
 
