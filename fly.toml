@@ -1,5 +1,10 @@
+# fly.toml app configuration file generated for fraudsight on 2026-05-18T10:20:06Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = 'fraudsight'
-primary_region = 'iad'
+primary_region = 'ams'
 
 [build]
 
@@ -17,3 +22,4 @@ primary_region = 'iad'
   memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 256
