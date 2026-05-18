@@ -7,6 +7,7 @@
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=matplotlib&logoColor=white)
+![Fly.io](https://img.shields.io/badge/Fly.io-8B5CF6?style=for-the-badge&logo=flydotio&logoColor=white)
 ![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
@@ -205,8 +206,113 @@ Although typically avoided in production code, print statements were retained in
 
 | Issue                     | Description                                                                                                  |
 |---------------------------|--------------------------------------------------------------------------------------------------------------|
-| **Deployment Upload Limits** | Large CSV uploads (including small samples) may fail on the deployed app due to platform constraints. The Fraud Detector works reliably when run locally with the full dataset. |
+| **Deployment Upload Limits** | Large CSV uploads may fail on the deployed app due to Fly.io memory constraints. The Fraud Detector works reliably when run locally with the full dataset. |
 | **Class Imbalance Sensitivity** | Very small transaction amounts may show reduced predictive reliability due to class imbalance.        |
+| **Model Performance Sampling** | The Model Performance page computes metrics on a 5,000-row sample rather than the full dataset to stay within memory limits on the deployed app. Results are representative but not exhaustive. |
+
+<br>
+
+## 🚀 Deployment
+
+### Live Application
+
+The app is live at **[https://fraudsight.fly.dev](https://fraudsight.fly.dev)**
+
+Deployed on [Fly.io](https://fly.io). Due to platform memory constraints, the deployed version uses a representative sample dataset for demonstration. The full analytical workflow is available locally.
+
+### Local Setup (Recommended for Full Functionality)
+
+```bash
+git clone https://github.com/BlvckKryptonite/fraudsight-risk-analyzer.git
+cd fraudsight-risk-analyzer
+pip install -r requirements.txt
+streamlit run src/app.py
+```
+
+> ⚠️ **Important:** To run the full fraud detection workflow, download the complete dataset locally and place it in the `data` directory, replacing the representative sample.
+> The file **must** be named exactly `sample_cleaned_transactions.csv`, as this filename is referenced consistently across the application and model pipeline.
+
+<br>
+
+### Migration to Fly.io
+
+The app was originally deployed on Heroku and migrated to [Fly.io](https://fly.io) following Heroku's removal of its free tier. This was the most involved of the three migrations due to the app's data science stack and large dataset.
+
+#### Why Fly.io?
+
+Fly.io offers a generous free tier and Docker-based deployments that give full control over the runtime environment — important for a data science app with specific memory and dependency requirements.
+
+#### Issues Encountered & How They Were Fixed
+
+**1. Out of memory (OOM) crashes**
+
+The app was repeatedly killed at startup with `Killed process (streamlit) — Out of memory`. Streamlit combined with pandas, scikit-learn, matplotlib, and seaborn consumes significant memory just from imports alone.
+
+Fix: Scale the machine to 2048mb.
+```bash
+fly scale memory 2048
+```
+
+And update `fly.toml`:
+```toml
+[[vm]]
+  memory = '2048mb'
+  cpu_kind = 'shared'
+  cpus = 1
+```
+
+**2. Model Performance page loading the full dataset on every visit**
+
+`model_performance.py` was loading the entire 143MB CSV and running predictions on all rows without caching, causing repeated memory spikes.
+
+Fix: Wrapped data loading and predictions in a `@st.cache_data` function and sampled 5,000 rows — more than sufficient for statistically meaningful confusion matrix and ROC curve outputs.
+
+**3. 143MB CSV blocked by GitHub's file size limit**
+
+The dataset had been committed to Git history, which blocked all pushes with `GH001: Large files detected`.
+
+Fix: Purged the file from Git history entirely using `git filter-repo`:
+```bash
+git filter-repo --path data/sample_cleaned_transactions.csv --invert-paths --force
+git remote add origin https://github.com/BlvckKryptonite/fraudsight.git
+git push origin --force --all
+```
+
+The file is now excluded from Git via `.gitignore` but still baked into the Docker image at build time via the Dockerfile, so the deployed app can still access it.
+
+**4. Slow deploys (600–800 second build context)**
+
+The entire `data/` folder was being sent to the build server on every deploy, inflating the build context to over 800MB.
+
+Fix: Added a `.dockerignore` to exclude unnecessary large files, keeping only `sample_cleaned_transactions.csv` since it is required at runtime.
+
+**5. CSV not found at runtime**
+
+After adding `.dockerignore`, `sample_cleaned_transactions.csv` was accidentally excluded, causing a `FileNotFoundError` at runtime.
+
+Fix: Removed the file from `.dockerignore` and ensured `COPY data/ data/` appears before `COPY . .` in the Dockerfile so the data is available when the app starts.
+
+#### Final Dockerfile
+
+```dockerfile
+FROM python:3.12-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY data/ data/
+COPY . .
+
+EXPOSE 8080
+
+CMD ["streamlit", "run", "src/app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+```
 
 
 <br>
